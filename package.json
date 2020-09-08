@@ -1,0 +1,39 @@
+{
+    "name": "@shah/tsn-persist-tabular",
+    "version": "0.1.0",
+    "description": "Content classifiers",
+    "main": "dist/persist-tabular.js",
+    "types": "dist/persist-tabular.d.ts",
+    "typings": "dist/persist-tabular",
+    "scripts": {
+        "start": "ts-node persist-tabular.ts",
+        "prepublishOnly": "rm -rf dist && tsc --project tsconfig.json",
+        "build": "tsc --project tsconfig.json",
+        "test": "alsatian '*.spec.ts'"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/shah/tsn-persist-tabular.git"
+    },
+    "keywords": [
+        "email",
+        "newsletters"
+    ],
+    "author": "Shahid N. Shah",
+    "license": "MIT",
+    "dependencies": {
+        "@shah/ts-pipe": "0.5.0",
+        "uuid": "^8.3.0"
+    },
+    "bugs": {
+        "url": "https://github.com/shah/tsn-persist-tabular/issues"
+    },
+    "homepage": "https://github.com/shah/tsn-persist-tabular",
+    "devDependencies": {
+        "@types/uuid": "^8.3.0",
+        "@types/node": "^14.0.26",
+        "ts-node": "^8.10.2",
+        "typescript": "^3.9.7",
+        "alsatian": "^3.2.1"
+    }
+}
