@@ -1,7 +1,7 @@
 {
     "name": "@shah/tsn-persist-tabular",
-    "version": "0.1.0",
-    "description": "Content classifiers",
+    "version": "0.1.1",
+    "description": "Create structured, tabular, files to persist data",
     "main": "dist/persist-tabular.js",
     "types": "dist/persist-tabular.d.ts",
     "typings": "dist/persist-tabular",
