@@ -20,6 +20,8 @@ export interface PersistPropsTransformer extends pipe.PipeUnionSync<PersistProps
 export interface TabularColumnDefn {
     delimitedHeader(): string;
     delimitedContent(pp: PersistProperties): string;
+    sqlDdlCreateTableColumnClause(): string;
+    sqlDdlCreateTableClause(): string | undefined;
 }
 
 export class GuessColumnDefn {
@@ -35,6 +37,29 @@ export class GuessColumnDefn {
         return this.name == "id" || this.name.endsWith("_id")
             ? value
             : JSON.stringify(value);
+    }
+
+    isNumber(value: any): boolean {
+        if (typeof value === "number") return true;
+        if (!isNaN(value)) return true;
+        if (typeof value != "string") return false;
+        return !isNaN(parseFloat(value));
+    }
+
+    sqlDdlCreateTableColumnClause(indent: string = "    "): string {
+        const guessValue = this.guessedFrom[this.name];
+        if (this.isNumber(guessValue)) {
+            if (Number.isInteger(guessValue)) {
+                return `${indent}${this.name} INT`;
+            }
+            return `${indent}${this.name} NUMERIC(16,2)`;
+        } else {
+            return `${indent}${this.name} VARCHAR(8192)`;
+        }
+    }
+
+    sqlDdlCreateTableClause(indent: string = "    "): string | undefined {
+        return this.name == "id" ? `${indent}PRIMARY KEY (${this.name})` : undefined;
     }
 }
 
@@ -110,5 +135,11 @@ export class TabularWriter<T> {
             return true;
         }
         return false;
+    }
+
+    sqlDdlCreateTable(): string {
+        const columns = this.schema.map(c => c.sqlDdlCreateTableColumnClause()).join(",\n");
+        const tableMeta = this.schema.map(c => c.sqlDdlCreateTableClause()).join(",\n");
+        return `    CREATE TABLE (\n${columns}\n${tableMeta}\n);`;
     }
 }
