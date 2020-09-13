@@ -1,6 +1,6 @@
 {
     "name": "@shah/tsn-persist-tabular",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Create structured, tabular, files to persist data",
     "main": "dist/persist-tabular.js",
     "types": "dist/persist-tabular.d.ts",
